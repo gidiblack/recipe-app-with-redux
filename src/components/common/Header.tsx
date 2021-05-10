@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Header = () => {
-  const activeStyle = { color: "#F15B2A" };
+function Header(): JSX.Element {
+  const activeStyle: { color: string } = { color: "#F15B2A" };
   return (
     <nav>
       <NavLink to="/" activeStyle={activeStyle} exact>
@@ -18,6 +18,6 @@ const Header = () => {
       </NavLink>
     </nav>
   );
-};
+}
 
 export default Header;

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const AboutPage = () => (
+const AboutPage = (): JSX.Element => (
   <div>
     <h2>About</h2>
     <p>

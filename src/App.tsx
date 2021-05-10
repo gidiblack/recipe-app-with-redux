@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Route, Switch } from "react-router-dom"; // Switch allows us to declare that only one route should match
 import HomePage from "./components/home/HomePage";
 import AboutPage from "./components/about/AboutPage";
@@ -6,7 +6,7 @@ import Header from "./components/common/Header"; // navigation header to be show
 import PageNotFound from "./components/PageNotFound"; // load this page when none of the paths match
 import RecipesPage from "./components/recipes/RecipesPage";
 
-function App() {
+function App(): JSX.Element {
   return (
     <div className="container-fluid">
       <Header />

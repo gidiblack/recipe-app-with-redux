@@ -1,6 +1,6 @@
 import React from "react";
 
-function RecipesPage() {
+function RecipesPage(): JSX.Element {
   return <h2>Recipes</h2>;
 }
 
