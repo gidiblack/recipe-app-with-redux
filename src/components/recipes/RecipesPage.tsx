@@ -2,6 +2,7 @@ import React from "react";
 
 interface IState {
   recipe: {
+    id: number;
     title: string;
   };
 }
@@ -10,9 +11,10 @@ interface IState {
 //   title: string;
 // }
 
-class RecipesPage extends React.Component<IState> {
-  state = {
+class RecipesPage extends React.Component {
+  state: IState = {
     recipe: {
+      id: 0,
       title: "",
     },
   };
