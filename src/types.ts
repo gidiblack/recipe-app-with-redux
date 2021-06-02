@@ -4,7 +4,7 @@ export interface IRecipes {
 
 export interface IState {
   recipes: IRecipe[];
-  authors: IAuthors;
+  authors: IAuthor[];
 }
 
 export interface IRecipe {
@@ -12,6 +12,7 @@ export interface IRecipe {
   title: string;
   slug: string;
   authorId: number | null;
+  authorName: string | undefined;
   category: string;
 }
 
@@ -25,16 +26,22 @@ export interface IAuthor {
 }
 
 export interface IRecipeAction {
-  createRecipe: (param: IRecipe) => void;
+  loadAuthors: any;
   loadRecipes: any;
 }
 
 export interface IRecipePageProps {
   recipes: IRecipe[];
   actions: IRecipeAction;
+  authors: IAuthor[];
 }
 
 export interface IRecipeReducerAction {
   type: string;
   recipes: IRecipes;
+}
+
+export interface IAuthorReducerAction {
+  type: string;
+  authors: IAuthors;
 }

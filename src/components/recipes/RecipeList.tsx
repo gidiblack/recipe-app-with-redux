@@ -29,7 +29,7 @@ const RecipeList = ({ recipes }: IRecipes): JSX.Element => (
             <td>
               <Link to={"/recipe/" + recipe.slug}>{recipe.title}</Link>
             </td>
-            <td>{recipe.authorId}</td>
+            <td>{recipe.authorName}</td>
             <td>{recipe.category}</td>
           </tr>
         );
