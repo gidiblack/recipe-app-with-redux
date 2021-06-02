@@ -3,7 +3,7 @@ export interface IRecipes {
 }
 
 export interface IState {
-  recipes: IRecipes["recipes"];
+  recipes: IRecipe[];
   authors: IAuthors;
 }
 
@@ -30,7 +30,7 @@ export interface IRecipeAction {
 }
 
 export interface IRecipePageProps {
-  recipes: IRecipes["recipes"];
+  recipes: IRecipe[];
   actions: IRecipeAction;
 }
 

@@ -1,4 +1,4 @@
-import { IRecipe, IRecipes } from "./../../types";
+import { IRecipe } from "./../../types";
 import * as types from "./actionTypes";
 import * as recipeApi from "./../../api/recipeApi";
 import { Dispatch } from "redux";
@@ -11,7 +11,7 @@ export function createRecipe(recipe: IRecipe) {
   // second property recipe was shortened from "recipe: recipe" because the left and right side match
 }
 
-export function loadRecipesSuccess(recipes: IRecipes["recipes"]) {
+export function loadRecipesSuccess(recipes: IRecipe[]) {
   return { type: types.LOAD_RECIPES_SUCCESS, recipes };
 }
 
@@ -19,14 +19,12 @@ export function loadRecipesSuccess(recipes: IRecipes["recipes"]) {
 export function loadRecipes() {
   // every thunk returns a function that accepts "dispatch" as an argument
   // thunk middleware passes "dispatch" as an argument to our thunk for us
-  return function (dispatch: Dispatch) {
-    return recipeApi
-      .getRecipes()
-      .then((recipes) => {
-        dispatch(loadRecipesSuccess(recipes));
-      })
-      .catch((error) => {
-        throw error;
-      });
+  return async function (dispatch: Dispatch) {
+    try {
+      const recipes = await recipeApi.getRecipes();
+      dispatch(loadRecipesSuccess(recipes));
+    } catch (error) {
+      throw error;
+    }
   };
 }
