@@ -3,7 +3,7 @@ import * as types from "../actions/actionTypes";
 
 // reducers are simply functions that accept the current state and an action and returns a new state clone
 export default function recipeReducer(
-  state: IState[] = [],
+  state: IState["authors"] = [],
   action: IAuthorReducerAction
 ) {
   // switch statement that looks at the action type
