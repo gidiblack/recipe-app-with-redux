@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { IRecipes } from "../../types";
 
 const RecipeList = ({ recipes }: IRecipes): JSX.Element => (
-  <table>
+  <table className="table">
     <thead>
       <tr>
         <th />

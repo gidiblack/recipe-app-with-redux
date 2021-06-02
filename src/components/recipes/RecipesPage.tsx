@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux"; // connect function to connect our component to the redux store
 import * as RecipeActions from "../../redux/actions/RecipeActions";
+import RecipeList from "./RecipeList";
 import { IRecipePageProps, IState } from "./../../types";
 import { bindActionCreators, Dispatch } from "redux"; // helper funtion to wrap action creators in dispatch calls
 
@@ -14,9 +15,11 @@ class RecipesPage extends React.Component<IRecipePageProps> {
     return (
       <>
         <h2>Recipes</h2>
-        {this.props.recipes.map((recipe, index) => (
+        <RecipeList recipes={this.props.recipes} />
+
+        {/* {this.props.recipes.map((recipe, index) => (
           <div key={index}>{recipe.title}</div>
-        ))}
+        ))} */}
       </>
     );
   }
