@@ -3,7 +3,7 @@ export interface IRecipes {
 }
 
 export interface IState {
-  recipes: IRecipes;
+  recipes: IRecipes["recipes"];
   authors: IAuthors;
 }
 
@@ -26,12 +26,12 @@ export interface IAuthor {
 
 export interface IRecipeAction {
   createRecipe: (param: IRecipe) => void;
-  loadRecipes: () => Promise<[]>;
+  loadRecipes: any;
 }
 
 export interface IRecipePageProps {
-  actions: IRecipeAction;
   recipes: IRecipes["recipes"];
+  actions: IRecipeAction;
 }
 
 export interface IRecipeReducerAction {
