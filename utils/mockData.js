@@ -1,83 +1,83 @@
-const courses = [
+const recipeData = [
   {
     id: 1,
-    title: "Securing React Apps with Auth0",
-    slug: "react-auth0-authentication-security",
+    title: "Grilled fish sticks",
+    slug: "grilled-fish-sticks",
     authorId: 1,
-    category: "JavaScript",
+    category: "Fish",
   },
   {
     id: 2,
-    title: "React: The Big Picture",
-    slug: "react-big-picture",
+    title: "Egusi Soup",
+    slug: "egusi-soup",
     authorId: 1,
-    category: "JavaScript",
+    category: "Soup",
   },
   {
     id: 3,
-    title: "Creating Reusable React Components",
-    slug: "react-creating-reusable-components",
+    title: "Jollof Rice",
+    slug: "jollof-rice",
     authorId: 1,
-    category: "JavaScript",
+    category: "Rice",
   },
   {
     id: 4,
-    title: "Building a JavaScript Development Environment",
-    slug: "javascript-development-environment",
+    title: "Coconut Rice",
+    slug: "coconut-rice",
     authorId: 1,
-    category: "JavaScript",
+    category: "Rice",
   },
   {
     id: 5,
-    title: "Building Applications with React and Redux",
-    slug: "react-redux-react-router-es6",
+    title: "Fish Stew",
+    slug: "fish-stew",
     authorId: 1,
-    category: "JavaScript",
+    category: "Fish",
   },
   {
     id: 6,
-    title: "Building Applications in React and Flux",
-    slug: "react-flux-building-applications",
+    title: "Fried Chicken",
+    slug: "fried-chicken",
     authorId: 1,
-    category: "JavaScript",
+    category: "Chicken",
   },
   {
     id: 7,
-    title: "Clean Code: Writing Code for Humans",
-    slug: "writing-clean-code-humans",
+    title: "Grilled Chicken",
+    slug: "grilled-chicken",
     authorId: 1,
-    category: "Software Practices",
+    category: "Chicken",
   },
   {
     id: 8,
-    title: "Architecting Applications for the Real World",
-    slug: "architecting-applications-dotnet",
+    title: "Alfredo Pasta",
+    slug: "alfredo-pasta",
     authorId: 1,
-    category: "Software Architecture",
+    category: "Pasta",
   },
   {
     id: 9,
-    title: "Becoming an Outlier: Reprogramming the Developer Mind",
-    slug: "career-reboot-for-developer-mind",
+    title: "Peppered Spaghetti",
+    slug: "peppered-spaghetti",
     authorId: 1,
-    category: "Career",
+    category: "Pasta",
   },
   {
     id: 10,
-    title: "Web Component Fundamentals",
-    slug: "web-components-shadow-dom",
+    title: "Afang Soup",
+    slug: "afang-soup",
     authorId: 1,
-    category: "HTML5",
+    category: "Soup",
   },
 ];
 
-const authors = [
-  { id: 1, name: "Cory House" },
-  { id: 2, name: "Scott Allen" },
-  { id: 3, name: "Dan Wahlin" },
+const authorData = [
+  { id: 1, name: "Dan Wilder" },
+  { id: 2, name: "Oprah Winphrey" },
+  { id: 3, name: "Father Abraham" },
 ];
 
-const newCourse = {
+const newRecipe = {
   id: null,
   title: "",
   authorId: null,
@@ -86,7 +86,7 @@ const newCourse = {
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)
 module.exports = {
-  newCourse,
-  courses,
-  authors,
+  newRecipe,
+  recipeData,
+  authorData,
 };
