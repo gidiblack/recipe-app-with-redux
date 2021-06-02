@@ -1,4 +1,5 @@
 import { handleResponse, handleError } from "./apiUtils";
+import { IRecipe } from "../types";
 const baseUrl = "http://localhost:3001/recipes/";
 
 export async function getRecipes() {
@@ -10,7 +11,7 @@ export async function getRecipes() {
   }
 }
 
-export async function saveRecipe(recipe) {
+export async function saveRecipe(recipe: IRecipe) {
   try {
     const response = await fetch(baseUrl + (recipe.id || ""), {
       method: recipe.id ? "PUT" : "POST",
@@ -23,7 +24,7 @@ export async function saveRecipe(recipe) {
   }
 }
 
-export async function deleteRecipe(recipeId) {
+export async function deleteRecipe(recipeId: number) {
   try {
     const response = await fetch(baseUrl + recipeId, { method: "DELETE" });
     return handleResponse(response);

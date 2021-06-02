@@ -3,7 +3,8 @@ export interface IRecipes {
 }
 
 export interface IState {
-  recipes: IRecipe[];
+  recipes: IRecipes;
+  authors: IAuthors;
 }
 
 export interface IRecipe {
@@ -23,11 +24,17 @@ export interface IAuthor {
   name: string;
 }
 
-export interface IAction {
+export interface IRecipeAction {
   createRecipe: (param: IRecipe) => void;
+  loadRecipes: () => Promise<[]>;
 }
 
 export interface IRecipePageProps {
-  actions: IAction;
+  actions: IRecipeAction;
   recipes: IRecipes["recipes"];
+}
+
+export interface IRecipeReducerAction {
+  type: string;
+  recipes: IRecipes;
 }

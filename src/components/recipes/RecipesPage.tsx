@@ -1,67 +1,30 @@
 import React from "react";
 import { connect } from "react-redux"; // connect function to connect our component to the redux store
 import * as RecipeActions from "../../redux/actions/RecipeActions";
-// import * as PropTypes from './../componentTypes';
+import { IRecipePageProps, IRecipes } from "./../../types";
 import { bindActionCreators } from "redux"; // helper funtion to wrap action creators in dispatch calls
 
-interface IState {
-  recipes: IRecipe[];
-}
-
-interface IRecipe {
-  title: string;
-}
-
-interface IAction {
-  createRecipe: (param: IRecipe) => void;
-}
-
-interface IProps {
-  actions: IAction;
-  recipes: IState["recipes"];
-}
-
-class RecipesPage extends React.Component<IProps> {
-  state = {
-    recipes: {
-      title: "",
-    },
-  };
-  // use arrow function to decare method because they inherit the binding context of their enclosing scope
-  handleChange = (e: any) => {
-    // copy state using object spread syntax then overwrite the title property by setting it to the target.value passed in on the event
-    const recipe = { ...this.state.recipes, title: e.target.value };
-    // set the state to the new recipe object
-    this.setState({ recipes: recipe });
-  };
-
-  handleSubmit = (e: any) => {
-    e.preventDefault();
-    this.props.actions.createRecipe(this.state.recipes);
-  };
-
+class RecipesPage extends React.Component<IRecipePageProps> {
+  componentDidMount() {
+    this.props.actions.loadRecipes().catch((error) => {
+      alert("Loading recipes failed" + error);
+    });
+  }
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <>
         <h2>Recipes</h2>
-        <h3>Add Recipes</h3>
-        <input
-          type="text"
-          onChange={this.handleChange}
-          value={this.state.recipes.title}
-        />
-        <input type="submit" value="Save" />
-        {this.props.recipes.map((recipe: IRecipe, index) => (
+        {this.props.recipes.map((recipe, index) => (
           <div key={index}>{recipe.title}</div>
         ))}
-      </form>
+      </>
     );
   }
 }
 
 // this function specifies what state you want to pass to your component as props
 // *Be specific and only request the data your component needs so that the component only rerenders when the state exposed to it changes
-function mapStateToProps(state: IState) {
+function mapStateToProps(state: IRecipes) {
   // it returns an object - each object key becomes a prop on the component
   return {
     recipes: state.recipes,
