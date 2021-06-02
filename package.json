@@ -1,5 +1,5 @@
 {
-  "name": "redux-app",
+  "name": "recipe-app-with-redux",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

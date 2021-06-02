@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux"; // connect function to connect our component to the redux store
 import * as RecipeActions from "../../redux/actions/RecipeActions";
+// import * as PropTypes from './../componentTypes';
 import { bindActionCreators } from "redux"; // helper funtion to wrap action creators in dispatch calls
 
 interface IState {
