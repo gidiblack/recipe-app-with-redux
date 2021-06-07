@@ -45,3 +45,38 @@ export interface IAuthorReducerAction {
   type: string;
   authors: IAuthors;
 }
+
+export interface RecipeFormProps {
+  recipe: IRecipe;
+  authors: IAuthor[];
+  onSave: () => void;
+  onChange: (e: any) => void;
+  saving: boolean;
+  errors: any;
+}
+
+export interface TextInputProps {
+  name: string;
+  label: string;
+  onChange: (e: any) => void;
+  placeholder: string;
+  value: string;
+  error: any;
+}
+
+export interface SelectInputProps {
+  name: string;
+  label: string;
+  onChange: (e: any) => void;
+  defaultOption: string;
+  value: string | number;
+  error: any;
+  options: any[];
+}
+
+export interface ManageRecipesProps {
+  recipes: IRecipe[];
+  authors: IAuthor[];
+  loadAuthors: () => Promise<void>;
+  loadRecipes: () => Promise<void>;
+}

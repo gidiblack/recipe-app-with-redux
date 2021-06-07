@@ -5,6 +5,7 @@ import AboutPage from "./components/about/AboutPage";
 import Header from "./components/common/Header"; // navigation header to be shown on all pages
 import PageNotFound from "./components/PageNotFound"; // load this page when none of the paths match
 import RecipesPage from "./components/recipes/RecipesPage";
+import ManageRecipes from "./components/recipes/ManageRecipes";
 
 function App(): JSX.Element {
   return (
@@ -14,6 +15,8 @@ function App(): JSX.Element {
         <Route exact path="/" component={HomePage} />
         <Route path="/about" component={AboutPage} />
         <Route path="/recipes" component={RecipesPage} />
+        <Route path="/recipe/:slug" component={ManageRecipes} />
+        <Route path="/recipe" component={ManageRecipes} />
         <Route component={PageNotFound} />
       </Switch>
     </div>
