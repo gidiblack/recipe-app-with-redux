@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux"; // connect function to connect our component to the redux store
-import { IState, ManageRecipesProps } from "../../types";
+import { IRecipe, IState, ManageRecipesProps } from "../../types";
 import * as RecipeActions from "../../redux/actions/RecipeActions";
 import * as AuthorActions from "../../redux/actions/authorActions";
 import RecipeForm from "./RecipeForm";
+import { Redirect } from "react-router-dom"; // react-router redirect component
 
-// empty recipe object
-const newRecipe = {
+// empty initial recipe object
+const newRecipe: IRecipe = {
   id: null,
   title: "",
   authorId: null,
@@ -25,15 +26,18 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
   ...props // "...props" holds any undestructured properties
 }) => {
   // use plain react state for data only a few components use (1-3 components, e.g form state)
-  const [recipe, setNewRecipe] = useState(props.recipe);
+  const [recipe, setNewRecipe] = useState({ ...props.recipe });
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
+  const [redirectToRecipesPage, setRedirectToRecipesPage] = useState(false);
 
   useEffect(() => {
     if (recipes.length === 0) {
       loadRecipes().catch((error: any) => {
         alert("Loading recipes failed " + error);
       });
+    } else {
+      setNewRecipe({ ...props.recipe });
     }
 
     if (authors.length === 0) {
@@ -41,7 +45,7 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
         alert("Loading authors failed " + error);
       });
     }
-  }, [authors.length, loadAuthors, loadRecipes, recipes.length]);
+  }, [authors.length, loadAuthors, loadRecipes, props.recipe, recipes.length]);
 
   // single change handler for all inputs
   function handleChange(e: any) {
@@ -57,24 +61,40 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
 
   function handleSave(e: any) {
     e.preventDefault();
-    saveRecipe(recipe);
+    saveRecipe(recipe).then(() => {
+      setRedirectToRecipesPage(true);
+    });
   }
 
   return (
-    <RecipeForm
-      authors={authors}
-      errors={errors}
-      recipe={recipe}
-      onChange={handleChange}
-      onSave={handleSave}
-      saving={saving}
-    />
+    <>
+      <RecipeForm
+        authors={authors}
+        errors={errors}
+        recipe={recipe}
+        onChange={handleChange}
+        onSave={handleSave}
+        saving={saving}
+      />
+      {/* if redirect state is true, evaluate Redirect component to the specified endpoint */}
+      {redirectToRecipesPage && <Redirect to="/recipes" />}
+    </>
   );
 };
 
-function mapStateToProps(state: IState) {
+function getRecipeBySlug(recipes: IRecipe[], slug: string) {
+  return recipes.find((recipe) => recipe.slug === slug) || newRecipe;
+}
+
+// ownProps param lets us access the component's own props which we can use to read the URL data injected on props by React Router
+function mapStateToProps(state: IState, ownProps: any) {
+  const slug = ownProps.match.params.slug; // this works because the route for this component in App.tsx has a placeholder for slug
+  const recipe =
+    slug && state.recipes.length > 0
+      ? getRecipeBySlug(state.recipes, slug)
+      : newRecipe;
   return {
-    recipe: newRecipe, // initialise "recipe" as the empty object on props
+    recipe: recipe, // initialise "recipe" as the empty object on props
     recipes: state.recipes,
     authors: state.authors,
   };

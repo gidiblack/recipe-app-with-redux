@@ -5,14 +5,10 @@ import { Dispatch } from "redux";
 
 // Actions refer to events happening in the app. They are plain objects containing a description of the event
 // actions are created by convenience functions called action creators (simple function that returns the action object)
-export function createRecipe(recipe: IRecipe) {
-  // action objects must have a "type" property followed by the payload
-  return { type: types.CREATE_RECIPE, recipe };
-  // second property recipe was shortened from "recipe: recipe" because the left and right side match
-}
-
 export function loadRecipesSuccess(recipes: IRecipe[]) {
+  // action objects must have a "type" property followed by the payload
   return { type: types.LOAD_RECIPES_SUCCESS, recipes };
+  // second property recipes was shortened from "recipes: recipes" because the left and right side match
 }
 
 export function createRecipeSuccess(recipe: IRecipe) {
@@ -38,7 +34,7 @@ export function loadRecipes() {
 }
 
 export function saveRecipe(recipe: IRecipe) {
-  return async function (dispatch: Dispatch, getState: any) {
+  return async function (dispatch: Dispatch) {
     try {
       const savedRecipe = await recipeApi.saveRecipe(recipe);
       recipe.id

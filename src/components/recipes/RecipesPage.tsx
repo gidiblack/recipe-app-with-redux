@@ -5,8 +5,14 @@ import * as AuthorActions from "../../redux/actions/authorActions";
 import RecipeList from "./RecipeList";
 import { IRecipePageProps, IState } from "./../../types";
 import { bindActionCreators, Dispatch } from "redux"; // helper funtion to wrap action creators in dispatch calls
+import { Redirect } from "react-router-dom"; // react-router redirect component
 
 class RecipesPage extends React.Component<IRecipePageProps> {
+  // declare redirect state initialised to false
+  state = {
+    redirectToAddRecipePage: false,
+  };
+
   componentDidMount() {
     const { recipes, authors, actions } = this.props;
 
@@ -22,10 +28,21 @@ class RecipesPage extends React.Component<IRecipePageProps> {
       });
     }
   }
+
   render() {
     return (
       <>
         <h2>Recipes</h2>
+        {/* set redirect state to true when button is clicked */}
+        <button
+          className="btn btn-primary mb-2"
+          onClick={() => this.setState({ redirectToAddRecipePage: true })}
+        >
+          Add Recipe
+        </button>
+        {/* if redirect state is true, evaluate Redirect component to the specified endpoint */}
+        {this.state.redirectToAddRecipePage && <Redirect to="/recipe" />}
+
         <RecipeList recipes={this.props.recipes} />
 
         {/* {this.props.recipes.map((recipe, index) => (

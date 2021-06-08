@@ -1,3 +1,3 @@
-import { createRecipe } from "./RecipeActions";
+import { createRecipeSuccess } from "./RecipeActions";
 
-export { createRecipe };
+export { createRecipeSuccess };

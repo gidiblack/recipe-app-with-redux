@@ -39,7 +39,7 @@ export interface IRecipePageProps {
 
 export interface IRecipeReducerAction {
   type: string;
-  recipes: IRecipes;
+  recipes: IRecipe[];
   recipe: IRecipe;
 }
 
