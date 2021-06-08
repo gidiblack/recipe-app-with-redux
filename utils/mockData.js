@@ -81,7 +81,9 @@ const newRecipe = {
   id: null,
   title: "",
   authorId: null,
+  authorName: "",
   category: "",
+  slug: "",
 };
 
 // Using CommonJS style export so we can consume via Node (without using Babel-node)

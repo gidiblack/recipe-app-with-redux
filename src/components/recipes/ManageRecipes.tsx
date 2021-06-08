@@ -1,8 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux"; // connect function to connect our component to the redux store
 import { IState, ManageRecipesProps } from "../../types";
 import * as RecipeActions from "../../redux/actions/RecipeActions";
 import * as AuthorActions from "../../redux/actions/authorActions";
+import RecipeForm from "./RecipeForm";
+
+// empty recipe object
+const newRecipe = {
+  id: null,
+  title: "",
+  authorId: null,
+  authorName: "",
+  category: "",
+  slug: "",
+};
 
 // destructuring props inline
 const ManageRecipes: React.FC<ManageRecipesProps> = ({
@@ -10,7 +21,15 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
   recipes,
   loadAuthors,
   loadRecipes,
+  ...props // "...props" holds any undestructured properties
 }) => {
+  // use plain react state for data only a few components use (1-3 components, e.g form state)
+  const [recipe, setNewRecipe] = useState(props.recipe);
+  const [errors, setErrors] = useState({});
+  const [saving, setSaving] = useState(false);
+
+  function handleSave() {}
+
   useEffect(() => {
     if (recipes.length === 0) {
       loadRecipes().catch((error: any) => {
@@ -23,16 +42,35 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
         alert("Loading authors failed " + error);
       });
     }
-  });
+  }, [authors.length, loadAuthors, loadRecipes, recipes.length]);
+
+  // single change handler for all inputs
+  function handleChange(e: any) {
+    // destructure event argument - this avoids the event getting garbage collected so that its available within the nested setNewRecipe callback
+    const { name, value } = e.target;
+    // use the functional form of setState to set a new recipe, this way we can safely reference the previous state as we set a new state
+    setNewRecipe((prevRecipe) => ({
+      ...prevRecipe,
+      // this is js computed property syntax which allows us to reference a property (in []) via a variable
+      [name]: name === "authorId" ? parseInt(value, 10) : value,
+    }));
+  }
+
   return (
-    <>
-      <h2> Manage Recipe </h2>
-    </>
+    <RecipeForm
+      authors={authors}
+      errors={errors}
+      recipe={recipe}
+      onChange={handleChange}
+      onSave={handleSave}
+      saving={saving}
+    />
   );
 };
 
 function mapStateToProps(state: IState) {
   return {
+    recipe: newRecipe, // initialise "recipe" as the empty object on props
     recipes: state.recipes,
     authors: state.authors,
   };

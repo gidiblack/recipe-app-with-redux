@@ -12,7 +12,7 @@ const SelectInput: React.FC<SelectInputProps> = (props) => {
           name={name}
           value={value}
           onChange={onChange}
-          className="form-control"
+          className="form-control my-2"
         >
           <option value="">{defaultOption}</option>
           {options.map((option, index) => {

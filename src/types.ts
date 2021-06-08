@@ -5,6 +5,7 @@ export interface IRecipes {
 export interface IState {
   recipes: IRecipe[];
   authors: IAuthor[];
+  // recipe: IRecipe;
 }
 
 export interface IRecipe {
@@ -77,6 +78,7 @@ export interface SelectInputProps {
 export interface ManageRecipesProps {
   recipes: IRecipe[];
   authors: IAuthor[];
+  recipe: IRecipe;
   loadAuthors: () => Promise<void>;
   loadRecipes: () => Promise<void>;
 }

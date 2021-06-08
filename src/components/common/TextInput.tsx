@@ -15,7 +15,7 @@ const TextInput: React.FC<TextInputProps> = (props) => {
         <input
           type="text"
           name={name}
-          className="form-control"
+          className="form-control my-2"
           placeholder={placeholder}
           value={value}
           onChange={onChange}
