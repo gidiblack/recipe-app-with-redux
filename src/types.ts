@@ -40,6 +40,7 @@ export interface IRecipePageProps {
 export interface IRecipeReducerAction {
   type: string;
   recipes: IRecipes;
+  recipe: IRecipe;
 }
 
 export interface IAuthorReducerAction {
@@ -50,7 +51,7 @@ export interface IAuthorReducerAction {
 export interface RecipeFormProps {
   recipe: IRecipe;
   authors: IAuthor[];
-  onSave: () => void;
+  onSave: (e: any) => void;
   onChange: (e: any) => void;
   saving: boolean;
   errors: any;
@@ -81,4 +82,5 @@ export interface ManageRecipesProps {
   recipe: IRecipe;
   loadAuthors: () => Promise<void>;
   loadRecipes: () => Promise<void>;
+  saveRecipe: (recipe: IRecipe) => Promise<void>;
 }

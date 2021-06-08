@@ -13,9 +13,9 @@ const RecipeList = ({ recipes }: IRecipes): JSX.Element => (
       </tr>
     </thead>
     <tbody>
-      {recipes.map((recipe) => {
+      {recipes.map((recipe, index) => {
         return (
-          <tr key={recipe.id}>
+          <tr key={index}>
             <td>
               <a
                 href={

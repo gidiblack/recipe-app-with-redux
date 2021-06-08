@@ -21,14 +21,13 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
   recipes,
   loadAuthors,
   loadRecipes,
+  saveRecipe,
   ...props // "...props" holds any undestructured properties
 }) => {
   // use plain react state for data only a few components use (1-3 components, e.g form state)
   const [recipe, setNewRecipe] = useState(props.recipe);
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
-
-  function handleSave() {}
 
   useEffect(() => {
     if (recipes.length === 0) {
@@ -56,6 +55,11 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
     }));
   }
 
+  function handleSave(e: any) {
+    e.preventDefault();
+    saveRecipe(recipe);
+  }
+
   return (
     <RecipeForm
       authors={authors}
@@ -80,6 +84,7 @@ function mapStateToProps(state: IState) {
 const mapDispatchToProps = {
   loadRecipes: RecipeActions.loadRecipes,
   loadAuthors: AuthorActions.loadAuthors,
+  saveRecipe: RecipeActions.saveRecipe,
 };
 // connect function returns a function which immediately calls our component
 export default connect(mapStateToProps, mapDispatchToProps)(ManageRecipes);
