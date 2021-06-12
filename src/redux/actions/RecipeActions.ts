@@ -20,6 +20,10 @@ export function updateRecipeSuccess(recipe: IRecipe) {
   return { type: types.UPDATE_RECIPE_SUCCESS, recipe };
 }
 
+export function deleteRecipeOptimistic(recipe: IRecipe) {
+  return { type: types.DELETE_RECIPE_OPTIMISTIC, recipe };
+}
+
 // Using redux-thunk to handle async functions (API calls)
 export function loadRecipes() {
   // every thunk returns a function that accepts "dispatch" as an argument
@@ -48,5 +52,14 @@ export function saveRecipe(recipe: IRecipe) {
       dispatch(apiCallError(error)); // dispatch apiCallError when the fetch call returns an error
       throw error; // throw the error to higher order functions in the stack
     }
+  };
+}
+
+export function deleteRecipe(recipe: IRecipe) {
+  return function (dispatch: Dispatch) {
+    // doing optimistic delete, so we're not dispatching begin/end api call actions
+    // or apiCallError action since we're not showing th loading status for this action
+    dispatch(deleteRecipeOptimistic(recipe));
+    return recipeApi.deleteRecipe(recipe.id);
   };
 }

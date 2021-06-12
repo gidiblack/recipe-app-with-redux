@@ -29,6 +29,7 @@ export interface IAuthor {
 export interface IRecipeAction {
   loadAuthors: any;
   loadRecipes: any;
+  deleteRecipe: any;
 }
 
 export interface IRecipePageProps {
@@ -60,6 +61,11 @@ export interface RecipeFormProps {
   onChange: (e: any) => void;
   saving: boolean;
   errors: any;
+}
+
+export interface RecipeListProps {
+  recipes: IRecipe[];
+  onDeleteClick: (recipe: IRecipe) => void;
 }
 
 export interface TextInputProps {

@@ -18,6 +18,8 @@ export default function recipeReducer(
       );
     case types.LOAD_RECIPES_SUCCESS:
       return action.recipes;
+    case types.DELETE_RECIPE_OPTIMISTIC:
+      return state.filter((recipe) => recipe.id !== action.recipe.id); // return a new array of all the recipes minus the recipe to be deleted
     default:
       return state; // always better to have a default return of the initial state
   }

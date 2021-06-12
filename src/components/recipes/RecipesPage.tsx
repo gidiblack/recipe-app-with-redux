@@ -3,10 +3,11 @@ import { connect } from "react-redux"; // connect function to connect our compon
 import * as RecipeActions from "../../redux/actions/RecipeActions";
 import * as AuthorActions from "../../redux/actions/authorActions";
 import RecipeList from "./RecipeList";
-import { IRecipePageProps, IState } from "./../../types";
+import { IRecipe, IRecipePageProps, IState } from "./../../types";
 import { bindActionCreators, Dispatch } from "redux"; // helper funtion to wrap action creators in dispatch calls
 import { Redirect } from "react-router-dom"; // react-router redirect component
 import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 class RecipesPage extends React.Component<IRecipePageProps> {
   // declare redirect state initialised to false
@@ -31,6 +32,11 @@ class RecipesPage extends React.Component<IRecipePageProps> {
     }
   }
 
+  handleDeleteRecipe = (recipe: IRecipe) => {
+    toast.success("Recipe Deleted"); // immediately tell the user that the recipe has been deleted
+    this.props.actions.deleteRecipe(recipe); // fire action to delete recipe
+  };
+
   render() {
     return (
       <>
@@ -50,7 +56,10 @@ class RecipesPage extends React.Component<IRecipePageProps> {
         {/* if redirect state is true, evaluate Redirect component to the specified endpoint */}
         {this.state.redirectToAddRecipePage && <Redirect to="/recipe" />}
 
-        <RecipeList recipes={this.props.recipes} />
+        <RecipeList
+          onDeleteClick={this.handleDeleteRecipe}
+          recipes={this.props.recipes}
+        />
       </>
     );
   }
@@ -84,6 +93,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
     actions: {
       loadRecipes: bindActionCreators(RecipeActions.loadRecipes, dispatch),
       loadAuthors: bindActionCreators(AuthorActions.loadAuthors, dispatch),
+      deleteRecipe: bindActionCreators(RecipeActions.deleteRecipe, dispatch),
     },
   };
 }

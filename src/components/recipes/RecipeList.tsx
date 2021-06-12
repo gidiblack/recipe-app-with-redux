@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { IRecipes } from "../../types";
+import { RecipeListProps } from "../../types";
 
-const RecipeList = ({ recipes }: IRecipes): JSX.Element => (
+const RecipeList = ({
+  recipes,
+  onDeleteClick,
+}: RecipeListProps): JSX.Element => (
   <table className="table">
     <thead>
       <tr>
@@ -10,6 +13,7 @@ const RecipeList = ({ recipes }: IRecipes): JSX.Element => (
         <th>Title</th>
         <th>Author</th>
         <th>Category</th>
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -31,6 +35,14 @@ const RecipeList = ({ recipes }: IRecipes): JSX.Element => (
             </td>
             <td>{recipe.authorName}</td>
             <td>{recipe.category}</td>
+            <td>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => onDeleteClick(recipe)}
+              >
+                Delete
+              </button>
+            </td>
           </tr>
         );
       })}
