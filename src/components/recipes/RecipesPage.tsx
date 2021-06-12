@@ -34,7 +34,13 @@ class RecipesPage extends React.Component<IRecipePageProps> {
 
   handleDeleteRecipe = (recipe: IRecipe) => {
     toast.success("Recipe Deleted"); // immediately tell the user that the recipe has been deleted
-    this.props.actions.deleteRecipe(recipe); // fire action to delete recipe
+    this.props.actions.deleteRecipe(recipe).catch((error: any) => {
+      toast.error(
+        "Delete failed. " + error.message + " please refresh the page",
+        { autoClose: false }
+      );
+    }); // fire action to delete recipe then display an error toast if the api call fails
+    // NOTE: this is the tradeoff that optimistic deletes offers - app feels fast but can't adequately handle errors if any
   };
 
   render() {
