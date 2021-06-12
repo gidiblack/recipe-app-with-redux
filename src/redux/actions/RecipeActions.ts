@@ -2,6 +2,7 @@ import { IRecipe } from "./../../types";
 import * as types from "./actionTypes";
 import * as recipeApi from "./../../api/recipeApi";
 import { Dispatch } from "redux";
+import { beginApiCall } from "./apiStatusActions";
 
 // Actions refer to events happening in the app. They are plain objects containing a description of the event
 // actions are created by convenience functions called action creators (simple function that returns the action object)
@@ -24,6 +25,7 @@ export function loadRecipes() {
   // every thunk returns a function that accepts "dispatch" as an argument
   // thunk middleware passes "dispatch" as an argument to our thunk for us
   return async function (dispatch: Dispatch) {
+    dispatch(beginApiCall()); // dispatch beginApiCall action before calling the api
     try {
       const recipes: IRecipe[] = await recipeApi.getRecipes();
       dispatch(loadRecipesSuccess(recipes));
@@ -35,6 +37,7 @@ export function loadRecipes() {
 
 export function saveRecipe(recipe: IRecipe) {
   return async function (dispatch: Dispatch) {
+    dispatch(beginApiCall()); // dispatch beginApiCall action before calling the api
     try {
       const savedRecipe = await recipeApi.saveRecipe(recipe);
       recipe.id

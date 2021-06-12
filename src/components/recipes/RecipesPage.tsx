@@ -6,22 +6,24 @@ import RecipeList from "./RecipeList";
 import { IRecipePageProps, IState } from "./../../types";
 import { bindActionCreators, Dispatch } from "redux"; // helper funtion to wrap action creators in dispatch calls
 import { Redirect } from "react-router-dom"; // react-router redirect component
+import Spinner from "../common/Spinner";
 
 class RecipesPage extends React.Component<IRecipePageProps> {
   // declare redirect state initialised to false
   state = {
     redirectToAddRecipePage: false,
   };
-
+  // run this code when the component first mounts
   componentDidMount() {
     const { recipes, authors, actions } = this.props;
-
+    // check if recipes array is empty then populate the array with redux action call
     if (recipes.length === 0) {
       actions.loadRecipes().catch((error: any) => {
         alert("Loading recipes failed " + error);
       });
     }
 
+    // check if authors array is empty then populate the array with redux action call
     if (authors.length === 0) {
       actions.loadAuthors().catch((error: any) => {
         alert("Loading authors failed " + error);
@@ -33,6 +35,7 @@ class RecipesPage extends React.Component<IRecipePageProps> {
     return (
       <>
         <h2>Recipes</h2>
+        <Spinner />
         {/* set redirect state to true when button is clicked */}
         <button
           className="btn btn-primary mb-2"
@@ -44,10 +47,6 @@ class RecipesPage extends React.Component<IRecipePageProps> {
         {this.state.redirectToAddRecipePage && <Redirect to="/recipe" />}
 
         <RecipeList recipes={this.props.recipes} />
-
-        {/* {this.props.recipes.map((recipe, index) => (
-          <div key={index}>{recipe.title}</div>
-        ))} */}
       </>
     );
   }
@@ -59,6 +58,7 @@ function mapStateToProps(state: IState) {
   // it returns an object - each object key becomes a prop on the component
   return {
     recipes:
+      // check that authors array has been populated before setting recipes state
       state.authors.length === 0
         ? []
         : state.recipes.map((recipe) => {

@@ -5,7 +5,7 @@ export interface IRecipes {
 export interface IState {
   recipes: IRecipe[];
   authors: IAuthor[];
-  // recipe: IRecipe;
+  apiCallsInProgress: number;
 }
 
 export interface IRecipe {
@@ -46,6 +46,10 @@ export interface IRecipeReducerAction {
 export interface IAuthorReducerAction {
   type: string;
   authors: IAuthors;
+}
+
+export interface IApiStatusReducerAction {
+  type: string;
 }
 
 export interface RecipeFormProps {
