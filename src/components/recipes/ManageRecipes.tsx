@@ -61,8 +61,21 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
     }));
   }
 
+  function formIsValid() {
+    const { title, authorId, category } = recipe;
+    const errors: any = {};
+    if (!title) errors.title = "Title is required.";
+    if (!authorId) errors.authorId = "Author is required";
+    if (!category) errors.category = "Category is required";
+
+    setErrors(errors);
+    // Form is valid if the errors object still has no properties
+    return Object.keys(errors).length === 0;
+  }
+
   function handleSave(e: any) {
     e.preventDefault();
+    if (!formIsValid()) return;
     setSaving(true);
     saveRecipe(recipe)
       .then(() => {
