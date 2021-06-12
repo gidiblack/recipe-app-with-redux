@@ -5,6 +5,8 @@ import * as RecipeActions from "../../redux/actions/RecipeActions";
 import * as AuthorActions from "../../redux/actions/authorActions";
 import RecipeForm from "./RecipeForm";
 import { Redirect } from "react-router-dom"; // react-router redirect component
+import Spinner from "../common/Spinner";
+import { toast } from "react-toastify";
 
 // empty initial recipe object
 const newRecipe: IRecipe = {
@@ -61,21 +63,33 @@ const ManageRecipes: React.FC<ManageRecipesProps> = ({
 
   function handleSave(e: any) {
     e.preventDefault();
-    saveRecipe(recipe).then(() => {
-      setRedirectToRecipesPage(true);
-    });
+    setSaving(true);
+    saveRecipe(recipe)
+      .then(() => {
+        toast.success("Recipe saved");
+        setRedirectToRecipesPage(true);
+      })
+      .catch((error) => {
+        setSaving(false);
+        setErrors({ onSave: error.message });
+      });
   }
 
   return (
+    // check if authors and recipes arrays are empty to show spinner while fecthing relevant data
     <>
-      <RecipeForm
-        authors={authors}
-        errors={errors}
-        recipe={recipe}
-        onChange={handleChange}
-        onSave={handleSave}
-        saving={saving}
-      />
+      {authors.length === 0 || recipes.length === 0 ? (
+        <Spinner />
+      ) : (
+        <RecipeForm
+          authors={authors}
+          errors={errors}
+          recipe={recipe}
+          onChange={handleChange}
+          onSave={handleSave}
+          saving={saving}
+        />
+      )}
       {/* if redirect state is true, evaluate Redirect component to the specified endpoint */}
       {redirectToRecipesPage && <Redirect to="/recipes" />}
     </>

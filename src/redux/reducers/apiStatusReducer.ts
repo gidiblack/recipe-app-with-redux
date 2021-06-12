@@ -13,8 +13,11 @@ export default function apiCallStatusReducer(
 ) {
   if (action.type === types.BEGIN_API_CALL) {
     return state + 1;
-  } else if (actionTypeEndsInSuccess(action.type)) {
-    // decrement state by one if actionTypeEndsInSuccess returns true
+  } else if (
+    action.type === types.API_CALL_ERROR ||
+    actionTypeEndsInSuccess(action.type)
+  ) {
+    // decrement state by one if API_CALL_ERROR or actionTypeEndsInSuccess returns true
     return state - 1;
   }
   return state; // return state as default

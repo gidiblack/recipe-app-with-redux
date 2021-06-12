@@ -35,6 +35,7 @@ export interface IRecipePageProps {
   recipes: IRecipe[];
   actions: IRecipeAction;
   authors: IAuthor[];
+  loading: boolean;
 }
 
 export interface IRecipeReducerAction {

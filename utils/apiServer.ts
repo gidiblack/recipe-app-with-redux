@@ -44,8 +44,8 @@ server.use((req, res, next) => {
   next();
 });
 
-server.post("/recipes/", function (req, res, next) {
-  const error = validateCourse(req.body);
+server.post("/recipeData/", function (req, res, next) {
+  const error = validateRecipe(req.body);
   if (error) {
     res.status(400).send(error);
   } else {
@@ -73,9 +73,9 @@ function createSlug(value) {
     .toLowerCase();
 }
 
-function validateCourse(course) {
-  if (!course.title) return "Title is required.";
-  if (!course.authorId) return "Author is required.";
-  if (!course.category) return "Category is required.";
+function validateRecipe(recipe) {
+  if (!recipe.title) return "Title is required.";
+  if (!recipe.authorId) return "Author is required.";
+  if (!recipe.category) return "Category is required.";
   return "";
 }

@@ -2,7 +2,7 @@ import { IRecipe } from "./../../types";
 import * as types from "./actionTypes";
 import * as recipeApi from "./../../api/recipeApi";
 import { Dispatch } from "redux";
-import { beginApiCall } from "./apiStatusActions";
+import { beginApiCall, apiCallError } from "./apiStatusActions";
 
 // Actions refer to events happening in the app. They are plain objects containing a description of the event
 // actions are created by convenience functions called action creators (simple function that returns the action object)
@@ -30,6 +30,7 @@ export function loadRecipes() {
       const recipes: IRecipe[] = await recipeApi.getRecipes();
       dispatch(loadRecipesSuccess(recipes));
     } catch (error) {
+      dispatch(apiCallError(error)); // dispatch apiCallError when the fetch call returns an error
       throw error;
     }
   };
@@ -44,7 +45,8 @@ export function saveRecipe(recipe: IRecipe) {
         ? dispatch(updateRecipeSuccess(savedRecipe))
         : dispatch(createRecipeSuccess(savedRecipe));
     } catch (error) {
-      throw error;
+      dispatch(apiCallError(error)); // dispatch apiCallError when the fetch call returns an error
+      throw error; // throw the error to higher order functions in the stack
     }
   };
 }

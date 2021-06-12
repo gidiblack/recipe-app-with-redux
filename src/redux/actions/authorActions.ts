@@ -2,7 +2,7 @@ import { IAuthors } from "./../../types";
 import * as types from "./actionTypes";
 import * as authorApi from "./../../api/authorApi";
 import { Dispatch } from "redux";
-import { beginApiCall } from "./apiStatusActions";
+import { apiCallError, beginApiCall } from "./apiStatusActions";
 
 export function loadAuthorsSuccess(authors: IAuthors) {
   return { type: types.LOAD_AUTHORS_SUCCESS, authors };
@@ -18,6 +18,7 @@ export function loadAuthors() {
       const authors = await authorApi.getAuthors();
       dispatch(loadAuthorsSuccess(authors));
     } catch (error) {
+      dispatch(apiCallError(error)); // dispatch apiCallError when the fetch call returns an error
       throw error;
     }
   };

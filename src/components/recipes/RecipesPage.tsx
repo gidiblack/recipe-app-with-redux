@@ -35,14 +35,18 @@ class RecipesPage extends React.Component<IRecipePageProps> {
     return (
       <>
         <h2>Recipes</h2>
-        <Spinner />
+        {/* show spinner when loading is true */}
         {/* set redirect state to true when button is clicked */}
-        <button
-          className="btn btn-primary mb-2"
-          onClick={() => this.setState({ redirectToAddRecipePage: true })}
-        >
-          Add Recipe
-        </button>
+        {this.props.loading ? (
+          <Spinner />
+        ) : (
+          <button
+            className="btn btn-primary mb-2"
+            onClick={() => this.setState({ redirectToAddRecipePage: true })}
+          >
+            Add Recipe
+          </button>
+        )}
         {/* if redirect state is true, evaluate Redirect component to the specified endpoint */}
         {this.state.redirectToAddRecipePage && <Redirect to="/recipe" />}
 
@@ -70,6 +74,7 @@ function mapStateToProps(state: IState) {
             };
           }),
     authors: state.authors,
+    loading: state.apiCallsInProgress > 0,
   };
 }
 
