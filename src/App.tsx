@@ -8,19 +8,22 @@ import RecipesPage from "./components/recipes/RecipesPage";
 import ManageRecipes from "./components/recipes/ManageRecipes";
 import { ToastContainer } from "react-toastify"; // react toastify container
 import "react-toastify/dist/ReactToastify.css"; // and css file to be used everywhere
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App(): JSX.Element {
   return (
     <div className="container-fluid">
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/about" component={AboutPage} />
-        <Route path="/recipes" component={RecipesPage} />
-        <Route path="/recipe/:slug" component={ManageRecipes} />
-        <Route path="/recipe" component={ManageRecipes} />
-        <Route component={PageNotFound} />
-      </Switch>
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/recipes" component={RecipesPage} />
+          <Route path="/recipe/:slug" component={ManageRecipes} />
+          <Route path="/recipe" component={ManageRecipes} />
+          <Route component={PageNotFound} />
+        </Switch>
+      </Router>
       {/* use react toastify container */}
       <ToastContainer autoClose={2500} />
     </div>

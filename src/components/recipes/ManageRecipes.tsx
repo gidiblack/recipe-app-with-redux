@@ -19,7 +19,7 @@ const newRecipe: IRecipe = {
 };
 
 // destructuring props inline
-const ManageRecipes: React.FC<ManageRecipesProps> = ({
+export const ManageRecipes: React.FC<ManageRecipesProps> = ({
   authors,
   recipes,
   loadAuthors,

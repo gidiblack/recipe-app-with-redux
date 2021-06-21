@@ -1,3 +1,4 @@
+// writing tests with react testing-library
 import React from "react";
 import { render, cleanup } from "@testing-library/react";
 import RecipeList from "./RecipeList";
@@ -15,6 +16,6 @@ function renderRecipeList(args?: any) {
 }
 
 it("Should render a category column in table", () => {
-  const { getByText } = renderRecipeList();
+  const { getByText } = renderRecipeList(); // getByText method exists under the returned object from render
   getByText("Category");
 });
