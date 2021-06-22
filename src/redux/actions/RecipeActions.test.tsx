@@ -4,11 +4,12 @@ import thunk from "redux-thunk";
 import fetchMock from "fetch-mock"; // used to mock fetch calls
 import configureMockStore from "redux-mock-store"; // used to create a mock redux store
 import { recipeData } from "../../../utils/mockData";
+import { IRecipe } from "../../types";
 
 describe("createRecipeSuccess", () => {
   it("should create a CREATE_RECIPE_SUCCESS action", () => {
     // arrange test
-    const recipe = {
+    const recipe: IRecipe = {
       id: 1,
       title: "Grilled fish sticks",
       slug: "grilled-fish-sticks",
@@ -54,7 +55,7 @@ describe("Async Actions", () => {
         { type: types.LOAD_RECIPES_SUCCESS, recipeData },
       ];
       // act - create mock redux store initialized to an empty array of recipes
-      const store = mockStore({ recipeData: [] });
+      const store = mockStore({ recipes: [] });
 
       // assert - dispatch loadRecipes action then  call getActions on mock store to return a list of actions that have occured
       return store.dispatch<any>(RecipeActions.loadRecipes()).then(() => {
